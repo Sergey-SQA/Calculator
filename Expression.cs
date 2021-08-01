@@ -5,14 +5,15 @@ namespace Calculator
     public class Expression
 
     {
-        public int[] Array { get; }
-        public string MathOperation { get; set; }
+    public int FirstNumber { get; }
+    public int SecondNumber { get; }
+    public string MathOperation { get; }
 
-        public float Result { get; set; }
-
-        public Expression()
+        public Expression(int firstNumber, int secondNumber, string mathOperation)
         {
-            Array = new int[2];
+            this.FirstNumber = firstNumber;
+            this.SecondNumber = secondNumber;
+            this.MathOperation = mathOperation;
         }
     }
 }

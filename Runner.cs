@@ -1,17 +1,14 @@
-﻿using System;
-
-namespace Calculator
+﻿namespace Calculator
 {
     public class Runner
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Expression Expression = new Expression();
-
-            InputOutput.InputFigure(Expression);
-            InputOutput.InputMathOperation(Expression);
-            Calculation.Calculate(Expression);
-            InputOutput.ShowResult(Expression);          
+            do
+            {
+                Expression expression = new Expression(ExpressionReader.InputFigure(), ExpressionReader.InputFigure(), ExpressionReader.InputMathOperation());
+                ExpressionWriter.ShowResult(expression);
+            } while (ExpressionReader.IsRestart());
         }
     }
 }
