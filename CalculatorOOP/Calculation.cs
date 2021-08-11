@@ -1,24 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Calculator
 {
-    public static class Calculation
+    public class Calculation        
     {
-        public static float Calculate(Expression expression)
+        private static readonly IDictionary<string, IOperation> Operations = new Dictionary<string, IOperation>
         {
-            switch (expression.MathOperation)
-            {
-                case "+":
-                    return expression.FirstNumber + expression.SecondNumber;
-                case "-":
-                    return expression.FirstNumber - expression.SecondNumber;
-                case "*":
-                    return expression.FirstNumber * expression.SecondNumber;
-                case "/":
-                    return (float) expression.FirstNumber / expression.SecondNumber;
-                default:
-                    throw new InvalidMathOperatorException("Неверный математический оператор");
-            }
+            { "+", new Addition() },
+            { "-", new Substraction() },
+            { "*", new Multiplication() },
+            { "/", new Division() }
+        };
+
+        public static float CalculateEpression(Expression expression)
+        {
+            if (Operations.TryGetValue(expression.MathOperation, out IOperation ioperation))
+                return ioperation.Calculate(expression.FirstNumber, expression.SecondNumber);
+            throw new InvalidMathOperatorException("Неверный математический оператор");
         }
     }
 }
